@@ -4,13 +4,6 @@
 #include <string_view>
 #include <vector>
 
-
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <string_view>
-
 bool password_check(const std::string& filename, std::string_view password) {
     std::ifstream file(filename, std::ios::binary);
     if (!file) if (!file) {return false;  std::cerr<<"FILE NOT FOUND";}
