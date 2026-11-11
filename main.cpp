@@ -6,7 +6,7 @@
 
 bool password_check(const std::string& filename, std::string_view password) {
     std::ifstream file(filename, std::ios::binary);
-    if (!file) if (!file) {return false;  std::cerr<<"FILE NOT FOUND";}
+    if (!file) if (!file) {std::cerr << "FILE NOT FOUND/n";return false;}
 
     constexpr std::size_t CHUNK_SIZE = 64 * 1024; //64kb chunks
     std::vector<char> buffer(CHUNK_SIZE);//using buffer beacuse we may have 100+gb files but not ram
@@ -44,9 +44,10 @@ int main(){
     std::string password;
     std::cout << "Enter your password: ";
     std::getline(std::cin, password);
-    if (password_check("/home/sami/Downloads/weakpass.txt", password)){ //MAKE SURE THAT THIS IS THE ACTUAL PATH 
+    bool check = (password_check("/Users/ellioteror/password-breaking", password));
+    if(check){ //MAKE SURE THAT THIS IS THE ACTUAL PATH 
         std::cout << "password " << password<< " was found in the given file\n";
     }else{
-        std::cout << "password " << password << " was not found in the given file\n";
+        std::cout << "password " << password << " was not found in the given file or the check hit an error\n";
     }
 }
