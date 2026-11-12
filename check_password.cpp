@@ -44,8 +44,13 @@ int main(){
     std::string password;
     std::cout << "Enter your password: ";
     std::getline(std::cin, password);
+<<<<<<< HEAD:main.cpp
+    bool check = (password_check("/Users/ellioteror/password-breaking/rockyou.txt", password));
+    if(check){ //MAKE SURE THAT THIS IS THE ACTUAL PATH 
+=======
     int check = (password_check("/Users/ellioteror/password-breaking", password));//MAKE SURE THAT THIS IS THE ACTUAL PATH 
     if(check==0){ 
+>>>>>>> 5d4e22e249394515c33f5400620351cf108de842:check_password.cpp
         std::cout << "password " << password<< " was found in the given file\n";
     }else if(check==1){
         std::cout << "password " << password << " was not found in the given file\n";
