@@ -4,9 +4,9 @@
 #include <string_view>
 #include <vector>
 
-bool password_check(const std::string& filename, std::string_view password) {
+int password_check(const std::string& filename, std::string_view password) {
     std::ifstream file(filename, std::ios::binary);
-    if (!file) if (!file) {std::cerr << "FILE NOT FOUND/n";return false;}
+    if (!file) if (!file) {std::cerr << "error: file " << filename << " not found/n";return 2;}
 
     constexpr std::size_t CHUNK_SIZE = 64 * 1024; //64kb chunks
     std::vector<char> buffer(CHUNK_SIZE);//using buffer beacuse we may have 100+gb files but not ram
@@ -23,7 +23,7 @@ bool password_check(const std::string& filename, std::string_view password) {
             if (c == '\n' || c == '\r') { //newlines
                 if (!current_line.empty()) { 
                     if (current_line == password) {
-                        return true;
+                        return 0;
                     }
                     current_line.clear();
                 }
@@ -34,20 +34,20 @@ bool password_check(const std::string& filename, std::string_view password) {
     }
     
     if (!current_line.empty() && current_line == password) {
-        return true;
+        return 0;
     } 
     
-    return false;
+    return 1;
 }
 
 int main(){
     std::string password;
     std::cout << "Enter your password: ";
     std::getline(std::cin, password);
-    bool check = (password_check("/Users/ellioteror/password-breaking", password));
-    if(check){ //MAKE SURE THAT THIS IS THE ACTUAL PATH 
+    int check = (password_check("/Users/ellioteror/password-breaking", password));//MAKE SURE THAT THIS IS THE ACTUAL PATH 
+    if(check==0){ 
         std::cout << "password " << password<< " was found in the given file\n";
-    }else{
-        std::cout << "password " << password << " was not found in the given file or the check hit an error\n";
+    }else if(check==1){
+        std::cout << "password " << password << " was not found in the given file\n";
     }
 }
