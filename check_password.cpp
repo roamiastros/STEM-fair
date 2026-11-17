@@ -6,7 +6,7 @@
 
 int password_check(const std::string& filename, std::string_view password) {
     std::ifstream file(filename, std::ios::binary);
-    if (!file) if (!file) {std::cerr << "error: file " << filename << " not found/n";return 2;}
+    if (!file) if (!file) {std::cerr << "error: file " << filename << " not found\n";return 2;}
 
     constexpr std::size_t CHUNK_SIZE = 64 * 1024; //64kb chunks
     std::vector<char> buffer(CHUNK_SIZE);//using buffer beacuse we may have 100+gb files but not ram
@@ -40,19 +40,22 @@ int password_check(const std::string& filename, std::string_view password) {
     return 1;
 }
 
-int main(){
-    std::string password;
-    std::cout << "Enter your password: ";
-    std::getline(std::cin, password);
-<<<<<<< HEAD:main.cpp
-    bool check = (password_check("/Users/ellioteror/password-breaking/rockyou.txt", password));
-    if(check){ //MAKE SURE THAT THIS IS THE ACTUAL PATH 
-=======
-    int check = (password_check("/Users/ellioteror/password-breaking", password));//MAKE SURE THAT THIS IS THE ACTUAL PATH 
-    if(check==0){ 
->>>>>>> 5d4e22e249394515c33f5400620351cf108de842:check_password.cpp
-        std::cout << "password " << password<< " was found in the given file\n";
-    }else if(check==1){
-        std::cout << "password " << password << " was not found in the given file\n";
+int main(int argc, char* argv[]){
+    // std::string password;
+    // std::cout << "Enter your password: ";
+    // std::getline(std::cin, password);
+    // int check = (password_check("/Users/ellioteror/password-breaking", password));//MAKE SURE THAT THIS IS THE ACTUAL PATH 
+    // if(check==0){ 
+    //     std::cout << "password " << password<< " was found in the given file\n";
+    // }else if(check==1){
+    //     std::cout << "password " << password << " was not found in the given file\n";
+    // }
+    if (argc==3){
+        int check = (password_check(argv[2], argv[1]));
+        std::cout << check << "\n";
+        return 0;
+    }
+    else{
+        std::cout << -1;
     }
 }

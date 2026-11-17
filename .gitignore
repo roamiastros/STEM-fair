@@ -2,3 +2,6 @@
 .idea/
 main
 main.dSYM/
+check_password
+check_password.dSYM/
+*.dSYM/
